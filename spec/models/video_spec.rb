@@ -11,6 +11,7 @@ describe Video do
       superman = Video.create(title: "Superman", description: "Super hero movie!")
       expect(Video.search_by_title("oops")).to eq([])
     end
+    
     it "returns an array of one video for an exact match" do
       batman = Video.create(title: "Batman", description: "Comic book movie!")
       expect(Video.search_by_title("Batman")).to eq([batman])
