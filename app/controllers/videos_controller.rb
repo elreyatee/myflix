@@ -1,4 +1,7 @@
 class VideosController < ApplicationController
+
+  def front; end
+  
   def index
     @categories = Category.order(:name)
   end
