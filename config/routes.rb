@@ -14,6 +14,4 @@ Myflix::Application.routes.draw do
       get '/search', to: 'videos#search'
     end
   end
-
-  resources :users, only: [:new, :create]
 end
