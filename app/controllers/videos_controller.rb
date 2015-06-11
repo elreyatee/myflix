@@ -1,6 +1,5 @@
 class VideosController < ApplicationController
-
-  def front; end
+  before_action :require_user
   
   def index
     @categories = Category.order(:name)
