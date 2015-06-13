@@ -1,11 +1,11 @@
 class VideosController < ApplicationController
   before_action :require_user
-  
+
   def index
     @categories = Category.order(:name)
   end
 
-  def show 
+  def show
     @video = Video.find_by(id: params[:id])
   end
 
