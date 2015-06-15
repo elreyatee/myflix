@@ -12,7 +12,7 @@ drama = Category.create!(name: "Dramas")
 action = Category.create!(name: "Action")
 commedies = Category.create!(name: "Commedies")
 
-Video.create!(title: "Daredevil", 
+daredevil = Video.create!(title: "Daredevil", 
             description: "Blinded as a young boy, Matt Murdock fights injustice by day as a lawyer and by night as the Super Hero Daredevil in Hell's Kitchen, New York City.", 
             small_cover_url: "/tmp/daredevil.jpg", 
             large_cover_url: "/tmp/daredevil_large.jpg",
@@ -47,3 +47,6 @@ Video.create!(title: "Monk",
             small_cover_url: "/tmp/monk.jpg",
             large_cover_url: "/tmp/monk_large.jpg", 
             category: commedies)
+
+Review.create(user: user, video: daredevil, rating: 5, body: "This is a really awesome movie! Marvel is the best!")
+Review.create(user: user, video: daredevil, rating: 5, body: "This is a really awesome movie! Marvel is the best!")
