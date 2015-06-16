@@ -15,19 +15,21 @@
 %section.reviews.container
   .row
     .col-sm-10.col-sm-offset-1
-      = bootstrap_form_for @review do |f| 
+      = form_for [@video, Review.new] do |f|
         %fieldset
           .form-group
+            %label Rate this video
             .row
               .col-sm-3
-                = f.select :rating, [['5 Stars', 5], ['4 Stars', 4], ['3 Stars', 3], ['2 Stars', 2], ['1 Star', 1]], { label: "Rate this video" }, { class: "form-control" }
+                = f.select :rating, options_for_select([5, 4, 3, 2, 1].map {|num| [pluralize(num, 'Star')]}), {}, { class: "form-control" }
           .form-group
+            %label Write Review
             .row
               .col-sm-8
-                = f.text_area :body, rows: 6, label: "Write Review"
+                = f.text_area :body, rows: 6, class: "form-control"
         %fieldset.form-group.actions.clearfix
           = f.submit "Submit", class: "btn"
-          %a(href="") Cancel
+          = link_to "Cancel", @video
       %header
         %h3 User Reviews (#{@reviews.count})
       %ul
@@ -39,5 +41,5 @@
                 %p by <a href="">#{review.user.name}</a>
               .col-sm-8
                 %p= review.body
-          
 
+                

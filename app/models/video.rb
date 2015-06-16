@@ -1,6 +1,6 @@
 class Video < ActiveRecord::Base
 
-  has_many :reviews
+  has_many :reviews, ->{ order(created_at: :desc )}
   belongs_to :category
   scope :sorted, ->{ order(:title) }
   validates_presence_of :title, :description
