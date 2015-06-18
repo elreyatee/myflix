@@ -20,10 +20,5 @@ describe QueueItemsController do
         expect(assigns(:queue_items)).to include(queue_item) 
       end
     end
-
-    describe 'POST create' do
-      
-    end
-
   end
 end
