@@ -5,15 +5,11 @@ class QueueItemsController < ApplicationController
     @queue_items = current_user.queue_items
   end
 
-  def update
+  def create
     @video = Video.find(params[:id])
     add_to_queue(@video) unless video_in_queue?(@video)
     flash[:notice] = "Your video has been added to the queue."
     redirect_to @video
-  end
-
-  def destroy
-
   end
 
   private

@@ -21,5 +21,5 @@ Myflix::Application.routes.draw do
     resources :reviews, only: [:create]
   end
 
-  resources :queue_items, only: [:update, :destroy]
+  resources :queue_items, only: [:create]
 end

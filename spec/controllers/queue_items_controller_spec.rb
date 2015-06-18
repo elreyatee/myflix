@@ -1,69 +1,68 @@
 require 'spec_helper'
 
 describe QueueItemsController do
-  context "for authenticated users" do 
-    let(:current_user) { Fabricate(:user) }
-    before { session[:user_id] = current_user.id }
+  let(:current_user) { Fabricate(:user) }
+  before { session[:user_id] = current_user.id }
 
-    describe 'GET index' do
-      it "should render the :index template" do
-        get :index
-        expect(response).to render_template(:index)
-      end
-
-      it "sets @queue_items of logged in user" do  
-        queue_item1 = Fabricate(:queue_item, user: current_user)
-        queue_item2 = Fabricate(:queue_item, user: current_user)
-        get :index
-        expect(assigns(:queue_items)).to match_array([queue_item1, queue_item2]) 
-      end
-
-      it "redirects to sign in page for unauthenticated users" do
-        get :index
-        expect(response).to redirect_to(sign_in_path)
-      end
+  describe 'GET index' do
+    it "should render the :index template" do
+      get :index
+      expect(response).to render_template(:index)
     end
 
-    describe 'PATCH update' do
-      it "creates a queue item" do
-        queue_item = Fabricate(:queue_item)
-        expect(QueueItem.count).to eq(1)
-      end
+    it "sets @queue_items of logged in user" do  
+      queue_item1 = Fabricate(:queue_item, user: current_user)
+      queue_item2 = Fabricate(:queue_item, user: current_user)
+      get :index
+      expect(assigns(:queue_items)).to match_array([queue_item1, queue_item2]) 
+    end
 
-      it "creates a queue item associated with video" do
-        video = Fabricate(:video)
-        queue_item = Fabricate(:queue_item)
-        queue_item.video_id = video.id
-        expect(queue_item.video_id).to eq(video.id)
-      end
-
-      it "creates a queue item associated with current user" do
-        video = Fabricate(:video)
-        queue_item = Fabricate(:queue_item)
-        queue_item.video_id = video.id
-        current_user.queue_items << queue_item 
-        expect(queue_item.user_id).to eq(current_user.id)
-      end
-
-      it "creates a queue item at end of the list" do
-        video = Fabricate(:video)
-        queue_item = Fabricate(:queue_item)
-        queue_item.video_id = video.id
-        current_user.queue_items << queue_item 
-        expect(QueueItem.last).to eq(queue_item)
-      end
-
-      it "sets the notice" do
-        video = Fabricate(:video)
-        patch :update, id: video.id
-        expect(flash[:notice]).not_to be_blank 
-      end
-
-      it "redirects back to video show page" do
-        video = Fabricate(:video)
-        patch :update, id: video.id
-        expect(response).to redirect_to(video_path(video))
-      end
+    it 'redirects to sign in page for unauthenticated users' do
+      get :index
+      expect(response).to redirect_to(sign_in_path)
     end
   end
+
+  describe 'POST create' do
+    it "creates a queue item" do
+      queue_item = Fabricate(:queue_item)
+      expect(QueueItem.count).to eq(1)
+    end
+
+    it "creates a queue item associated with video" do
+      video = Fabricate(:video)
+      queue_item = Fabricate(:queue_item)
+      queue_item.video_id = video.id
+      expect(queue_item.video_id).to eq(video.id)
+    end
+
+    it "creates a queue item associated with current user" do
+      video = Fabricate(:video)
+      queue_item = Fabricate(:queue_item)
+      queue_item.video_id = video.id
+      current_user.queue_items << queue_item 
+      expect(queue_item.user_id).to eq(current_user.id)
+    end
+
+    it "creates a queue item at end of the list" do
+      video = Fabricate(:video)
+      queue_item = Fabricate(:queue_item)
+      queue_item.video_id = video.id
+      current_user.queue_items << queue_item 
+      expect(QueueItem.last).to eq(queue_item)
+    end
+
+    it "sets the notice" do
+      video = Fabricate(:video)
+      patch :create, id: video.id
+      expect(flash[:notice]).not_to be_blank 
+    end
+
+    it "redirects back to video show page" do
+      video = Fabricate(:video)
+      patch :create, id: video.id
+      expect(response).to redirect_to(video_path(video))
+    end
+  end
+  
 end
