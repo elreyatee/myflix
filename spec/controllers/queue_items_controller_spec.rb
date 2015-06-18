@@ -10,6 +10,20 @@ describe QueueItemsController do
         get :index
         expect(response).to render_template(:index)
       end
+
+      it "sets @queue_items" do  
+        video = Fabricate(:video)
+        queue_item = Fabricate(:queue_item)
+        queue_item.video_id = video.id
+        current_user.queue_items << queue_item 
+        get :index
+        expect(assigns(:queue_items)).to include(queue_item) 
+      end
     end
+
+    describe 'POST create' do
+      
+    end
+
   end
 end
