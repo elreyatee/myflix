@@ -12,6 +12,10 @@ class QueueItemsController < ApplicationController
     redirect_to @video
   end
 
+  def destroy
+    
+  end
+
   private
 
   def video_in_queue?(video)

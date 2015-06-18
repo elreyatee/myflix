@@ -14,42 +14,19 @@
               %th(width="15%") Genre
               %th(width="15%") Remove
           %tbody
-            %tr
-              %td
-                %input.form-control(type="text" value="1")
-              %td
-                = link_to "Futurama"
-              %td
-                = button_to "Play", nil, class: "btn btn-default"
-              %td
-                %select.form-group(name="")
-                  %option(value="5") 5 Stars
-                  %option(value="4") 4 Stars
-                  %option(value="3") 3 Stars
-                  %option(value="2") 2 Stars
-                  %option(value="1") 1 Star
-              %td
-                = link_to "TV Shows"
-              %td
-                = link_to "", method: :post do
-                  %i.glyphicon.glyphicon-remove
-            %tr
-              %td
-                %input.form-control(type="text" value="2")
-              %td
-                = link_to "Family Guy"
-              %td
-                = button_to "Play", nil, class: "btn btn-default"
-              %td
-                %select(name="")
-                  %option(value="5") 5 Stars
-                  %option(value="4") 4 Stars
-                  %option(value="3") 3 Stars
-                  %option(value="2") 2 Stars
-                  %option(value="1") 1 Star
-              %td
-                = link_to "TV Shows"
-              %td
-                = link_to "", method: :post do
-                  %i.glyphicon.glyphicon-remove
+            - @queue_items.each do |item| 
+              %tr
+                %td
+                  %input.form-control(type="text" value="#{item.list_position}")
+                %td
+                  = link_to item.title, video_path(item)
+                %td
+                  = button_to "Play", nil, class: "btn btn-default"
+                %td
+                  = item.video.average_rating
+                %td
+                  = link_to item.category.name, category_path(item.category)
+                %td
+                  = link_to queue_item_path(item), method: :delete do
+                    %i.glyphicon.glyphicon-remove
         = button_to "Update Instant Queue", nil, class: "btn btn-default"
