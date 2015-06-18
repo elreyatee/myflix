@@ -11,13 +11,16 @@ describe QueueItemsController do
         expect(response).to render_template(:index)
       end
 
-      it "sets @queue_items" do  
-        video = Fabricate(:video)
-        queue_item = Fabricate(:queue_item)
-        queue_item.video_id = video.id
-        current_user.queue_items << queue_item 
+      it "sets @queue_items of logged in user" do  
+        queue_item1 = Fabricate(:queue_item, user: current_user)
+        queue_item2 = Fabricate(:queue_item, user: current_user)
         get :index
-        expect(assigns(:queue_items)).to include(queue_item) 
+        expect(assigns(:queue_items)).to match_array([queue_item1, queue_item2]) 
+      end
+
+      it "redirects to sign in page for unauthenticated users" do
+        get :index
+        expect(response).to redirect_to(sign_in_path)
       end
     end
 

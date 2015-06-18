@@ -13,7 +13,7 @@ class QueueItemsController < ApplicationController
   end
 
   def destroy
-    
+
   end
 
   private

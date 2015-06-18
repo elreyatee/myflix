@@ -14,19 +14,19 @@
               %th(width="15%") Genre
               %th(width="15%") Remove
           %tbody
-            - @queue_items.each do |item| 
+            - @queue_items.each do |queue_item| 
               %tr
                 %td
-                  %input.form-control(type="text" value="#{item.list_position}")
+                  %input.form-control(type="text" value="#{queue_item.list_position}")
                 %td
-                  = link_to item.title, video_path(item)
+                  = link_to queue_item.video_title, queue_item.video
                 %td
                   = button_to "Play", nil, class: "btn btn-default"
                 %td
-                  = item.video.average_rating
+                  = queue_item.rating
                 %td
-                  = link_to item.category.name, category_path(item.category)
+                  = link_to queue_item.category_name, queue_item.category
                 %td
-                  = link_to queue_item_path(item), method: :delete do
+                  = link_to queue_item_path(queue_item), method: :delete do
                     %i.glyphicon.glyphicon-remove
         = button_to "Update Instant Queue", nil, class: "btn btn-default"
