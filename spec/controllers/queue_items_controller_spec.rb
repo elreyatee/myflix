@@ -17,7 +17,8 @@ describe QueueItemsController do
       expect(assigns(:queue_items)).to match_array([queue_item1, queue_item2]) 
     end
 
-    it 'redirects to sign in page for unauthenticated users' do
+    it "redirects to sign in page for unauthenticated users" do
+      session[:user_id] = nil
       get :index
       expect(response).to redirect_to(sign_in_path)
     end
@@ -25,43 +26,50 @@ describe QueueItemsController do
 
   describe 'POST create' do
     it "creates a queue item" do
-      queue_item = Fabricate(:queue_item)
+      video = Fabricate(:video)
+      post :create, id: video.id
       expect(QueueItem.count).to eq(1)
     end
 
     it "creates a queue item associated with video" do
       video = Fabricate(:video)
-      queue_item = Fabricate(:queue_item)
-      queue_item.video_id = video.id
-      expect(queue_item.video_id).to eq(video.id)
+      post :create, id: video.id
+      expect(QueueItem.first.video).to eq(video)
     end
 
     it "creates a queue item associated with current user" do
       video = Fabricate(:video)
-      queue_item = Fabricate(:queue_item)
-      queue_item.video_id = video.id
-      current_user.queue_items << queue_item 
-      expect(queue_item.user_id).to eq(current_user.id)
+      post :create, id: video.id
+      expect(QueueItem.first.user).to eq(current_user)
     end
 
     it "creates a queue item at end of the list" do
-      video = Fabricate(:video)
-      queue_item = Fabricate(:queue_item)
-      queue_item.video_id = video.id
-      current_user.queue_items << queue_item 
-      expect(QueueItem.last).to eq(queue_item)
+      raid = Fabricate(:video, title: "Raid")
+      matrix = Fabricate(:video, title: "The Matrix")
+      Fabricate(:queue_item, user: current_user, video: matrix)
+      raid_queue_item = Fabricate(:queue_item, user: current_user, video: raid)
+      post :create, id: raid.id
+      expect(QueueItem.last).to eq(raid_queue_item)
     end
 
-    it "sets the notice" do
+    it "redirects back to my_queue page" do
       video = Fabricate(:video)
-      patch :create, id: video.id
-      expect(flash[:notice]).not_to be_blank 
+      post :create, id: video.id
+      expect(response).to redirect_to(my_queue_path)
     end
 
-    it "redirects back to video show page" do
+    it "does not add video to the queue if it's already in the queue" do
+      raid = Fabricate(:video, title: "Raid")
+      Fabricate(:queue_item, user: current_user, video: raid)
+      post :create, id: raid.id
+      expect(current_user.queue_items.count).to eq(1)
+    end
+
+    it 'redirects to sign in page for unauthenticated users' do
+      session[:user_id] = nil
       video = Fabricate(:video)
-      patch :create, id: video.id
-      expect(response).to redirect_to(video_path(video))
+      post :create, id: video.id
+      expect(response).to redirect_to(sign_in_path)
     end
   end
   

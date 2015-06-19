@@ -6,19 +6,18 @@ class QueueItemsController < ApplicationController
   end
 
   def create
-    @video = Video.find(params[:id])
-    add_to_queue(@video) unless video_in_queue?(@video)
-    flash[:notice] = "Your video has been added to the queue."
-    redirect_to @video
+    video = Video.find(params[:id])
+    queue_video(video)
+    redirect_to my_queue_path
   end
 
   private
 
   def video_in_queue?(video)
-    QueueItem.where(video_id: video.id, user_id: current_user.id).first
+    QueueItem.where(video: video, user: current_user).first
   end
 
-  def add_to_queue(video)
-    QueueItem.create(user_id: current_user.id, video_id: video.id, list_position: current_user.queue_items.count + 1)
+  def queue_video(video)
+    QueueItem.create(user: current_user, video: video, list_position: current_user.queue_items.count + 1) unless video_in_queue?(video)
   end
 end
