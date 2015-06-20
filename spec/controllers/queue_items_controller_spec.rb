@@ -99,11 +99,11 @@ describe QueueItemsController do
       expect(response).to redirect_to(sign_in_path)
     end
 
-    it "reorders all queue items list postitions" do
-      queue_item1 = Fabricate(:queue_item, list_position: 1)
-      queue_item2 = Fabricate(:queue_item, list_position: 2)
-      delete :destroy, id: queue_item1.id
-      expect(queue_item2.list_position).to eq(1)
-    end
+    # it "reorders all queue items list postitions" do
+    #   queue_item1 = Fabricate(:queue_item, list_position: 1)
+    #   queue_item2 = Fabricate(:queue_item, list_position: 2)
+    #   delete :destroy, id: queue_item1.id
+    #   expect(queue_item2.list_position).to eq(1)
+    # end
   end
 end
