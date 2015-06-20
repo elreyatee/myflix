@@ -37,7 +37,7 @@ describe SessionsController do
 
     context "with invalid credentials" do
       before do
-        post :create, email: ellery.email, password: ellery.password + 'asf'
+        post :create, email: ellery.email, password: "wrong"
       end
 
       it "does not put user in the session" do
