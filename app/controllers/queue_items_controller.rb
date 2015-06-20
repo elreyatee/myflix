@@ -11,6 +11,18 @@ class QueueItemsController < ApplicationController
     redirect_to my_queue_path
   end
 
+  def destroy
+    queue_item = QueueItem.find(params[:id])
+    queue_item.destroy if current_user.queue_items.include?(queue_item)
+    subsequent_queue_items = QueueItem.where("list_position > :position", position: params[:id]).
+                                       where(user: current_user)
+    subsequent_queue_items.map do |item| 
+      position = item.list_position
+      item.update(list_position: position - 1)
+    end
+    redirect_to my_queue_path
+  end
+
   private
 
   def video_in_queue?(video)
