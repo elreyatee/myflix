@@ -14,6 +14,6 @@ class Video < ActiveRecord::Base
   def average_rating
     return 3.0 if self.reviews.count == 0
     total_score = self.reviews.inject(0) {|sum, review| sum + review.rating}
-    total_score / self.reviews.count
+    (total_score / self.reviews.count).round(2)
   end
 end
