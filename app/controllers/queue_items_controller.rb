@@ -14,6 +14,7 @@ class QueueItemsController < ApplicationController
   def destroy
     queue_item = QueueItem.find(params[:id])
     queue_item.destroy if current_user.queue_items.include?(queue_item)
+    
     subsequent_queue_items = QueueItem.where("list_position > :position", position: params[:id]).
                                        where(user: current_user)
     subsequent_queue_items.map do |item| 
