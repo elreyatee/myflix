@@ -27,7 +27,7 @@ class QueueItemsController < ApplicationController
   private
 
   def video_in_queue?(video)
-    QueueItem.where(video: video, user: current_user).first
+    QueueItem.find_by(video: video, user: current_user)
   end
 
   def queue_video(video)
