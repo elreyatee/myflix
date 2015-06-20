@@ -4,6 +4,7 @@ describe Video do
   it { should belong_to(:category) }
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:description) }
+  it { should have_many(:reviews).order("created_at DESC") }
 
   describe "search_by_title" do
     it "returns an empty array if there is not match" do
@@ -31,6 +32,15 @@ describe Video do
       batman = Video.create(title: "Batman", description: "Comic book movie!")
       superman = Video.create(title: "Superman", description: "Super hero movie!")
       expect(Video.search_by_title("")).to eq([])
+    end
+  end
+
+  describe "average_rating" do
+    it "returns average of all total rating score" do
+      video = Fabricate(:video)
+      review1 = Fabricate(:review, rating: 5.0, video_id: video.id)
+      review2 = Fabricate(:review, rating: 5.0, video_id: video.id)
+      expect(video.average_rating).to eq(5.0)
     end
   end
 end
