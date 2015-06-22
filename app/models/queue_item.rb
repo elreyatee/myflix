@@ -4,6 +4,7 @@ class QueueItem < ActiveRecord::Base
 
   delegate :category, to: :video
   delegate :title, to: :video, prefix: :video
+  validates_numericality_of :list_position, { only_integer: true }
 
   def rating
     review = Review.find_by(user: user, video: video)
