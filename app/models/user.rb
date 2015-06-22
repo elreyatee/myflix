@@ -7,4 +7,10 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true, on: :create, length: { minimum: 7 }
+
+  def normalize_queue_item_positions
+    queue_items.each_with_index do |queue_item, index|
+      queue_item.update_attributes(list_position: index + 1)
+    end
+  end
 end
