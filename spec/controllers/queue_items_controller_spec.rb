@@ -98,12 +98,29 @@ describe QueueItemsController do
       delete :destroy, id: 5
       expect(response).to redirect_to(sign_in_path)
     end
+  end
 
-    # it "reorders all queue items list postitions" do
-    #   queue_item1 = Fabricate(:queue_item, list_position: 1)
-    #   queue_item2 = Fabricate(:queue_item, list_position: 2)
-    #   delete :destroy, id: queue_item1.id
-    #   expect(queue_item2.list_position).to eq(1)
-    # end
+  describe "POST update_queue" do  
+    context "with valid inputs" do
+      it "redirects to my queue page" do
+        queue_item1 = Fabricate(:queue_item, user: current_user, list_position: 1)
+        queue_item2 = Fabricate(:queue_item, user: current_user, list_position: 2)
+        post :update_queue, queue_items: [{id: queue_item1.id, list_position: 2}, {id: queue_item2.id, list_position: 1}]
+        expect(response).to redirect_to(my_queue_path)
+      end
+
+      it "reorders the queue items" do
+        queue_item1 = Fabricate(:queue_item, user: current_user, list_position: 1)
+        queue_item2 = Fabricate(:queue_item, user: current_user, list_position: 2)
+        post :update_queue, queue_items: [{id: queue_item1.id, list_position: 2}, {id: queue_item2.id, list_position: 1}]
+        expect(current_user.queue_items).to eq([queue_item2, queue_item1])
+      end
+
+      it "normalizes the position numbers"
+    end
+    context "with invalid inputs"
+    context "with unauthenticated users"
+    context "with queue items that do not belong to the users"
+
   end
 end
