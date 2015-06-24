@@ -1,26 +1,23 @@
 require 'spec_helper'
 
 describe QueueItemsController do
-  let(:current_user) { Fabricate(:user) }
-  before { session[:user_id] = current_user.id }
+  before { set_current_user }
 
   describe "GET index" do
     it "should render the :index template" do
       get :index
-      expect(response).to render_template(:index)
+      expect(response).to render_template :index
     end
 
     it "sets @queue_items of logged in user" do  
       queue_item1 = Fabricate(:queue_item, user: current_user)
       queue_item2 = Fabricate(:queue_item, user: current_user)
       get :index
-      expect(assigns(:queue_items)).to match_array([queue_item1, queue_item2]) 
+      expect(assigns(:queue_items)).to match_array [queue_item1, queue_item2]
     end
-
-    it "redirects to sign in page for unauthenticated users" do
-      session[:user_id] = nil
-      get :index
-      expect(response).to redirect_to(sign_in_path)
+    
+    it_behaves_like "require_sign_in" do  
+      let(:action) { get :index }
     end
   end
 
@@ -55,7 +52,7 @@ describe QueueItemsController do
     it "redirects back to my_queue page" do
       video = Fabricate(:video)
       post :create, id: video.id
-      expect(response).to redirect_to(my_queue_path)
+      expect(response).to redirect_to my_queue_path
     end
 
     it "does not add video to the queue if it's already in the queue" do
@@ -65,11 +62,11 @@ describe QueueItemsController do
       expect(current_user.queue_items.count).to eq(1)
     end
 
-    it "redirects to sign in page for unauthenticated users" do
-      session[:user_id] = nil
-      video = Fabricate(:video)
-      post :create, id: video.id
-      expect(response).to redirect_to(sign_in_path)
+    it_behaves_like "require_sign_in" do  
+      let(:action) do  
+        video = Fabricate(:video)
+        post :create, id: video.id
+      end
     end
   end
 
@@ -77,7 +74,7 @@ describe QueueItemsController do
     it "redirects to my_queue page" do
       queue_item = Fabricate(:queue_item)
       delete :destroy, id: queue_item.id
-      expect(response).to redirect_to(my_queue_path)
+      expect(response).to redirect_to my_queue_path
     end
 
     it "deletes the queue item" do
@@ -93,10 +90,8 @@ describe QueueItemsController do
       expect(QueueItem.count).to eq(1)
     end
 
-    it "redirects to sign in page for unauthenticated users" do 
-      session[:user_id] = nil
-      delete :destroy, id: 5
-      expect(response).to redirect_to(sign_in_path)
+    it_behaves_like "require_sign_in" do  
+      let(:action) { delete :destroy, id: 5 }
     end
 
     it "normalizes the remaining queue items" do
@@ -108,6 +103,11 @@ describe QueueItemsController do
   end
 
   describe "POST update_queue" do  
+
+    it_behaves_like "require_sign_in" do  
+      let(:action) { post :update_queue, queue_items: [{id: 2, list_position: 3}, {id: 5, list_position: 2}] }
+    end
+    
     context "with valid inputs" do
       let(:video) { Fabricate(:video) }
       let(:queue_item1) { Fabricate(:queue_item, user: current_user, list_position: 1, video: video) }
@@ -115,7 +115,7 @@ describe QueueItemsController do
 
       it "redirects to my queue page" do
         post :update_queue, queue_items: [{id: queue_item1.id, list_position: 2}, {id: queue_item2.id, list_position: 1}]
-        expect(response).to redirect_to(my_queue_path)
+        expect(response).to redirect_to my_queue_path
       end
 
       it "reorders the queue items" do
@@ -136,7 +136,7 @@ describe QueueItemsController do
 
       it "redirects to the my_queue page" do
         post :update_queue, queue_items: [{id: queue_item1.id, list_position: 3.4}, {id: queue_item2.id, list_position: 2}]
-        expect(response).to redirect_to(my_queue_path)
+        expect(response).to redirect_to my_queue_path 
       end
 
       it "sets the flash error message" do  
@@ -147,14 +147,6 @@ describe QueueItemsController do
       it "does not change the queue items" do
         post :update_queue, queue_items: [{id: queue_item1.id, list_position: 3}, {id: queue_item2.id, list_position: 2.1}]
         expect(queue_item1.reload.list_position).to eq(1)
-      end
-    end
-
-    context "with unauthenticated users" do
-      it "redirects to the sign in path" do
-        session[:user_id] = nil
-        post :update_queue, queue_items: [{id: 2, list_position: 3}, {id: 5, list_position: 2}]
-        expect(response).to redirect_to(sign_in_path)
       end
     end
 

@@ -29,7 +29,6 @@ describe Category do
       action = Category.create(name: "Action")
       10.times { Video.create(title: "Spiderman", description: "Hero movie", category: action) }
       hulk = Video.create(title: "Hulk", description: "Hero movie", category: action, created_at: 1.day.ago)
-
       expect(action.recent_videos).not_to include(hulk)
     end
 

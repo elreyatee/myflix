@@ -17,7 +17,7 @@ describe UsersController do
       end
 
       it "redirects to sign in page" do
-        expect(response).to redirect_to(sign_in_path)
+        expect(response).to redirect_to sign_in_path
       end
     end
 
@@ -29,11 +29,11 @@ describe UsersController do
       end
 
       it "render the new template" do
-        expect(response).to render_template(:new)
+        expect(response).to render_template :new
       end
 
       it "sets @user" do
-        expect(assigns(:user)).to be_instance_of(User)
+        expect(assigns(:user)).to be_instance_of User
       end
     end
   end
