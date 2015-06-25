@@ -4,9 +4,9 @@
       = bootstrap_form_tag url: sign_in_path do |f| 
         %header
           %h1 Sign in
-        %fieldset#sign_in
+        %fieldset
           .row
-            = f.email_field :email, wrapper: { class: "col-sm-4"}
+            = f.email_field :email, wrapper: { class: "col-sm-4" }
           .row
             = f.password_field :password, wrapper: { class: "col-sm-4" }
         %fieldset.form-group.action
