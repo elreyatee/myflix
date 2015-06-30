@@ -4,10 +4,7 @@ feature "the sign in process" do
   given(:aaron) { Fabricate(:user, email: "aaron@temple.com", password: "password") }
 
   scenario "signing in with correct credentials" do  
-    visit sign_in_path
-    fill_in "Email", with: aaron.email
-    fill_in "Password", with: aaron.password
-    click_button "Sign in"
+    sign_in(aaron)
     expect(page).to have_content("You are signed in.")
   end
 

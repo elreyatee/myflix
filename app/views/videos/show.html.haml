@@ -2,7 +2,7 @@
   .container
     .row
       .video_large_cover.col-sm-7.col-sm-offset-1
-        =image_tag @video.large_cover_url
+        = image_tag @video.large_cover_url
       .video_info.col-sm-3
         %header
           %h3= @video.title
@@ -10,7 +10,7 @@
         %p= @video.description
         .actions
           = link_to "Watch Now", "", class: "btn btn-primary"
-          = link_to "+ My Queue", queue_items_path(id: @video.id), method: :post, class: "btn btn-default"
+          = link_to "+ My Queue", queue_items_path(id: @video.id), method: :post, class: "btn btn-default" unless current_user.queue_includes?(@video)
           
 %section.reviews.container
   .row
