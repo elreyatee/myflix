@@ -1,5 +1,5 @@
-def sign_in(some_user=nil)
-  user = some_user || Fabricate(:user)
+def sign_in(user = nil)
+  user ||= Fabricate(:user)
   visit sign_in_path
   fill_in "Email", with: user.email
   fill_in "Password", with: user.password
