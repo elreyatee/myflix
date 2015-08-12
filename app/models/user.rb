@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   has_secure_password validations: false
+  has_many :relationships
+  has_many :followings, through: :relationships
   has_many :reviews
   has_many :queue_items, ->{ order(:list_position) }
   validates :name, presence: true
@@ -22,5 +24,9 @@ class User < ActiveRecord::Base
 
   def total_reviews
     reviews.count
+  end
+
+  def total_followers
+    Relationship.where(following_id: id).count
   end
 end
