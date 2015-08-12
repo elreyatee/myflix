@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :require_user, only: [:show]
 
   def new
     @user = User.new
@@ -14,6 +15,14 @@ class UsersController < ApplicationController
       flash[:error] = 'There was a problem, please try again.'
       render 'new'
     end
+  end
+
+  def show
+    @user = User.find(params[:id])
+  end
+
+  def follow
+
   end
 
   private

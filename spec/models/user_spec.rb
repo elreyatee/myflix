@@ -19,7 +19,7 @@ describe User do
     it "returns false when the user hasn't queued the video" do 
       user = Fabricate(:user)
       video = Fabricate(:video)  
-      expect(user.queue_includes?(video)).to be_false
+      expect(user.queue_includes?(video)).to be_falsey
     end
   end
 end
