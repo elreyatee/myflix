@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   end
 
   def queue_includes?(video)
-    self.queue_items.map(&:video).include?(video) 
+    queue_items.map(&:video).include?(video) 
   end
 
   def total_queue_items

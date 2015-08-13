@@ -36,6 +36,5 @@ describe Category do
       action = Category.create(name: "Action")
       expect(action.recent_videos).to eq([])
     end
-
   end
 end
