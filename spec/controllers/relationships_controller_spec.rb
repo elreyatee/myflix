@@ -18,14 +18,21 @@ describe RelationshipsController do
   end
 
   describe "POST create" do 
+    before do 
+      set_current_user
+      post :create, following_id: user.id
+    end
+    
     it_behaves_like "require_sign_in" do 
       let(:action) { post :create, following_id: 3 }
     end
 
     it "creates the follow relationship" do 
-      set_current_user
-      post :create, following_id: user.id
       expect(Relationship.count).to eq(1)
+    end
+
+    it "redirects to root path" do 
+      expect(response).to redirect_to root_path
     end
   end
 
