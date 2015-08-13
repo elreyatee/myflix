@@ -8,7 +8,6 @@ describe User do
   it { should have_many(:queue_items).order(:list_position) }
 
   describe "#queue_includes?" do  
-
     it "returns true when the user queues the video" do
       user = Fabricate(:user)
       video = Fabricate(:video)  
