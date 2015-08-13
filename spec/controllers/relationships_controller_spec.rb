@@ -4,15 +4,15 @@ describe RelationshipsController do
   let(:user) { Fabricate(:user) }
   let(:follower) { Fabricate(:user) }
 
-  describe "GET show" do 
+  describe "GET index" do 
     it_behaves_like "require_sign_in" do 
-      let(:action) { get :show, id: 3 }
+      let(:action) { get :index, id: 3 }
     end
 
     it "sets the @followings variable" do 
       set_current_user
       Relationship.create(following_id: user.id, user_id: current_user.id)
-      get :show, id: current_user.id
+      get :index, id: current_user.id
       expect(assigns(:followings)).to eq(current_user.followings)
     end
   end

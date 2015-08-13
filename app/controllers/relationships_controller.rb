@@ -1,7 +1,7 @@
 class RelationshipsController < ApplicationController
-  before_action :require_user, only: [:create, :destroy, :show]
+  before_action :require_user, only: [:create, :destroy, :index]
 
-  def show
+  def index
     @followings = current_user.followings
   end
 
