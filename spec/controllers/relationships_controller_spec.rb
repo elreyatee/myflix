@@ -22,7 +22,7 @@ describe RelationshipsController do
       set_current_user
       post :create, following_id: user.id
     end
-    
+
     it_behaves_like "require_sign_in" do 
       let(:action) { post :create, following_id: 3 }
     end
@@ -37,15 +37,22 @@ describe RelationshipsController do
   end
 
   describe "DELETE destroy" do 
+    before do 
+      set_current_user
+      Relationship.create(following_id: user.id, user_id: current_user.id)
+      delete :destroy, id: user.id
+    end
+
     it_behaves_like "require_sign_in" do 
       let(:action) { delete :destroy, id: 3 }
     end
 
     it "creates destroy the relationship" do 
-      set_current_user
-      Relationship.create(following_id: user.id, user_id: current_user.id)
-      delete :destroy, id: user.id
       expect(Relationship.count).to eq(0)
+    end
+
+    it "redirects to current user show page" do 
+      expect(response).to redirect_to current_user
     end
   end
 end
