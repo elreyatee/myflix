@@ -7,7 +7,7 @@ class RelationshipsController < ApplicationController
 
   def create
     @relationship = current_user.relationships.create(following_id: params[:following_id])
-    
+
     if @relationship.errors.any?
       @relationship.errors.messages.values.each do |msg|
         flash[:error] = "#{msg.first}"

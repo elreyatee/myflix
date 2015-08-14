@@ -20,7 +20,7 @@ describe RelationshipsController do
   describe "POST create" do 
     before do 
       set_current_user
-      post :create, following_id: user.id
+      set_referrer
     end
 
     it_behaves_like "require_sign_in" do 
@@ -28,13 +28,23 @@ describe RelationshipsController do
     end
 
     it "creates the follow relationship" do 
+      post :create, following_id: user.id
       expect(Relationship.count).to eq(1)
     end
 
-    # it "should not be able to follow yourself"
-    # it "should not be able to follow a person you're already following"
+    it "should not be able to follow yourself" do 
+      post :create, following_id: current_user.id, user_id: current_user.id
+      expect(Relationship.count).to eq(0)
+    end
+
+    it "should not be able to follow a person you're already following" do 
+      Relationship.create!(following_id: user.id, user_id: current_user.id)
+      post :create, following_id: user.id
+      expect(Relationship.count).not_to eq(2)
+    end
 
     it "redirects to root path" do 
+      post :create, following_id: user.id
       expect(response).to redirect_to root_path
     end
   end

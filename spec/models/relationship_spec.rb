@@ -8,6 +8,4 @@ describe Relationship do
     scoped_to(:user_id).
     with_message('You are already following this user')
   end
-
-  describe ""
 end

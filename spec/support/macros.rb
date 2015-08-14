@@ -6,6 +6,10 @@ def sign_in(user = nil)
   click_button "Sign in"
 end
 
+def set_referrer
+  request.env['HTTP_REFERER'] = "http://localhost:3000"
+end
+
 def set_current_user
   aaron = Fabricate(:user)
   session[:user_id] = aaron.id
