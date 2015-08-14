@@ -6,12 +6,15 @@ class RelationshipsController < ApplicationController
   end
 
   def create
-    @relationship = current_user.relationships.build(following_id: params[:following_id])
-    if @relationship.save
-      flash[:notice] = "You are now following #{User.find(@relationship.following_id).name}"
-      redirect_to root_path
+    @relationship = current_user.relationships.create(following_id: params[:following_id])
+    
+    if @relationship.errors.any?
+      @relationship.errors.messages.values.each do |msg|
+        flash[:error] = "#{msg.first}"
+        redirect_to :back
+      end
     else
-      flash[:error] = "Sorry there was a problem"
+      flash[:notice] = "You are now following #{User.find(@relationship.following_id).name}"
       redirect_to root_path
     end
   end

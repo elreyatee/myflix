@@ -31,6 +31,9 @@ describe RelationshipsController do
       expect(Relationship.count).to eq(1)
     end
 
+    # it "should not be able to follow yourself"
+    # it "should not be able to follow a person you're already following"
+
     it "redirects to root path" do 
       expect(response).to redirect_to root_path
     end
