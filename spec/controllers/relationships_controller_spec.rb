@@ -11,7 +11,7 @@ describe RelationshipsController do
 
     it "sets the @followings variable" do 
       set_current_user
-      Relationship.create(following_id: user.id, user_id: current_user.id)
+      Relationship.create(following: user, user: current_user)
       get :index, id: current_user.id
       expect(assigns(:followings)).to eq(current_user.followings)
     end
@@ -38,7 +38,7 @@ describe RelationshipsController do
     end
 
     it "should not be able to follow a person you're already following" do 
-      Relationship.create!(following_id: user.id, user_id: current_user.id)
+      Relationship.create!(following: user, user: current_user)
       post :create, following_id: user.id
       expect(Relationship.count).not_to eq(2)
     end
