@@ -3,6 +3,8 @@ require 'spec_helper'
 describe Relationship do 
   it { should belong_to(:user) }
   it { should belong_to(:following) }
+  it { should validate_presence_of(:following_id) }
+  it { should validate_presence_of(:user_id) }
   it do 
     should validate_uniqueness_of(:following_id).
     scoped_to(:user_id).

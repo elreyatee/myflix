@@ -1,6 +1,7 @@
 class Relationship < ActiveRecord::Base
   belongs_to :user
   belongs_to :following, class_name: "User"
+  validates_presence_of :following_id, :user_id
   validates_uniqueness_of :following_id, scope: :user_id, 
     message: "You are already following this user"
   validate :cannot_follow_self
