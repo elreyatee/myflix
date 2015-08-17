@@ -14,8 +14,9 @@ gem 'bcrypt'
 
 group :development do
   gem 'thin'
-  gem "better_errors"
-  gem "binding_of_caller"
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'letter_opener'
 end
 
 group :development, :test do
