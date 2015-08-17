@@ -29,4 +29,8 @@ class User < ActiveRecord::Base
   def total_followers
     Relationship.where(following_id: id).count
   end
+
+  def following?(another_user)
+    followings.include?(another_user)
+  end
 end

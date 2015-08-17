@@ -44,4 +44,16 @@ describe User do
       expect(user.total_followers).to eq(1)
     end
   end
+
+  describe "#following?" do 
+    it "returns true of user is following another user" do 
+      Relationship.create(user_id: follower.id, following_id: user.id)
+      expect(follower.following?(user)).to be_truthy
+    end
+
+    it "returns false if user is not following another user" do 
+      aaron = Fabricate(:user)
+      expect(aaron.following?(user)).to be_falsey
+    end
+  end
 end
