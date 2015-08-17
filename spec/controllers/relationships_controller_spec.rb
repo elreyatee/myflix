@@ -64,8 +64,8 @@ describe RelationshipsController do
       expect(Relationship.count).to eq(0)
     end
 
-    it "redirects to current user show page" do 
-      expect(response).to redirect_to current_user
+    it "redirects to people show page for current user" do 
+      expect(response).to redirect_to relationships_path(current_user)
     end
   end
 end
