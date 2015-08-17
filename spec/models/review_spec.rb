@@ -10,4 +10,10 @@ describe Review do
     scoped_to(:video_id).
     with_message('Only one movie review per user')
   end
+
+  it "reviews should be in order by creation" do 
+    video = Fabricate(:video)
+    review1 = Fabricate(:review, user: Fabricate(:user), video: video)
+    review2 = Fabricate(:review, user: Fabricate(:user), video: video)
+  end
 end
