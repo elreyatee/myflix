@@ -1,5 +1,4 @@
 class Review < ActiveRecord::Base
-
   belongs_to :user
   belongs_to :video
   scope :sorted, ->{ order(:created_at) }

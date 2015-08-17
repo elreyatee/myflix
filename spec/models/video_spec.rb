@@ -38,9 +38,11 @@ describe Video do
 
   describe "average_rating" do
     it "returns average of all total rating score" do
+      user1 = Fabricate(:user)
+      user2 = Fabricate(:user)
       video = Fabricate(:video)
-      review1 = Fabricate(:review, rating: 5.0, video_id: video.id)
-      review2 = Fabricate(:review, rating: 5.0, video_id: video.id)
+      review1 = Fabricate(:review, rating: 5.0, video: video, user: user1)
+      review2 = Fabricate(:review, rating: 5.0, video: video, user: user2)
       expect(video.average_rating).to eq(5.0)
     end
   end
