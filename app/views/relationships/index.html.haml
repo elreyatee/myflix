@@ -14,8 +14,8 @@
           %td
             %img(src="http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(user.email.downcase)}?s=40")
             = link_to "#{user.name}", user
-          %td.extra-padding #{user.total_queue_items}
-          %td.extra-padding #{user.total_followers}
+          %td.extra-padding{id: "total_queue_items"} #{user.total_queue_items}
+          %td.extra-padding{id: "total_followers"} #{user.total_followers}
           %td.extra-padding
-            = link_to relationship_path(user), method: :delete do
+            = link_to relationship_path(user), id: "unfollow", method: :delete do
               %i.glyphicon.glyphicon-remove
