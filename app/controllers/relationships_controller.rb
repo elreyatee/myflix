@@ -7,6 +7,7 @@ class RelationshipsController < ApplicationController
 
   def create
     @relationship = current_user.relationships.create(following_id: params[:following_id])
+    followed_user = User.find(@relationship.following_id)
 
     if @relationship.errors.any?
       @relationship.errors.messages.values.each do |msg|
@@ -14,15 +15,16 @@ class RelationshipsController < ApplicationController
         redirect_to :back
       end
     else
-      flash[:notice] = "You are now following #{User.find(@relationship.following_id).name}"
+      flash[:notice] = "You are now following #{followed_user.name}"
       redirect_to relationships_path(current_user)
     end
   end
 
   def destroy
     relationship = current_user.relationships.find_by(following_id: params[:id])
+    followed_user = User.find(relationship.following_id)
     relationship.destroy
-    flash[:notice] = "You are no longer following #{User.find(relationship.following_id).name}"
+    flash[:notice] = "You are no longer following #{followed_user.name}"
     redirect_to relationships_path(current_user)
   end
 end

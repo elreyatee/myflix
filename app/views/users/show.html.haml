@@ -24,14 +24,14 @@
   .row
     .col-sm-10.col-sm-offset-1
       %header
-        %h3= "#{@user.name}'s's Reviews (#{@user.total_reviews})"
+        %h3 #{@user.name}'s's Reviews (#{@user.total_reviews})
       %ul
         - @user.reviews.each do |review|
           %article.review
             %li.row
               .col-sm-2
                 %p
-                  = link_to "#{review.video.title}"
-                %col= "Rating: #{review.rating.to_i} / 5"
+                  = link_to review.video.title
+                %col Rating: #{review.rating.to_i} / 5
               .col-sm-8
-                %p= "#{review.body}"
+                %p= review.body

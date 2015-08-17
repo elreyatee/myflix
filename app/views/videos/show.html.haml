@@ -40,7 +40,7 @@
                 %span Rating: #{review.rating.to_i} / 5
                 %p 
                   by
-                  = link_to "#{review.user.name}", user_path(review.user)
+                  = link_to review.user.name, user_path(review.user)
               .col-sm-8
                 %p= review.body
 
