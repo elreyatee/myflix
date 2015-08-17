@@ -43,9 +43,9 @@ describe RelationshipsController do
       expect(Relationship.count).not_to eq(2)
     end
 
-    it "redirects to root path" do 
+    it "redirects to people show page for current user" do 
       post :create, following_id: user.id
-      expect(response).to redirect_to root_path
+      expect(response).to redirect_to relationships_path(current_user)
     end
   end
 

@@ -15,7 +15,7 @@ class RelationshipsController < ApplicationController
       end
     else
       flash[:notice] = "You are now following #{User.find(@relationship.following_id).name}"
-      redirect_to root_path
+      redirect_to relationships_path(current_user)
     end
   end
 
