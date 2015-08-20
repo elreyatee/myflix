@@ -69,4 +69,8 @@ describe UsersController do
       expect(assigns(:user)).to eq(bob)
     end
   end
+
+  describe "PATCH update" do 
+
+  end 
 end
