@@ -1,6 +1,6 @@
 class PasswordResetsController < ApplicationController
   def show
-    user = User.where(token: params[:id]).first
+    user = User.find_by(token: params[:id])
     if user
       @token = user.token
     else
@@ -8,18 +8,16 @@ class PasswordResetsController < ApplicationController
     end
   end
 
-  def expired_token; end
-
   def create
-    user = User.where(token: params[:token]).first
-    if user 
-      user.password = params[:password]
-      user.generate_token
+    user = User.find_by(token: params[:token])
+    if user && user.update(password: params[:password]) #checks AR validations on password
       user.save
-      flash[:success] = "Your password has been changed. Please sign in."
+      flash[:notice] = "Your password has been changed. Please sign in."
       redirect_to sign_in_path
     else
       redirect_to expired_token_path
     end
   end
+
+  def expired_token; end
 end
