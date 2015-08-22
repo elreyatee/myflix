@@ -13,11 +13,6 @@ describe User do
   it { should have_many(:relationships) }
   it { should have_many(:followings).through(:relationships) }
 
-  it "generates a random token when user is created" do 
-    aaron = Fabricate(:user)
-    expect(aaron.token).to be_present
-  end
-
   describe "#queue_includes?" do  
     it "returns true when the user queues the video" do
       Fabricate(:queue_item, user: user, video: video)

@@ -12,8 +12,7 @@ class PasswordResetsController < ApplicationController
     user = User.find_by(token: params[:token])
     if user && user.update(password: params[:password]) #checks AR validations on password
       user.save
-      flash[:notice] = "Your password has been changed. Please sign in."
-      redirect_to sign_in_path
+      redirect_to sign_in_path, notice: "Your password has been changed. Please sign in."
     else
       redirect_to expired_token_path
     end
