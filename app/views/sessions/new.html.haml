@@ -9,5 +9,7 @@
             = f.email_field :email, wrapper: { class: "col-sm-4" }
           .row
             = f.password_field :password, wrapper: { class: "col-sm-4" }
+          .row
+            = link_to "Forgot Password", forgot_password_path, class: "col-sm-4 forgot_password"
         %fieldset.form-group.action
           = f.submit "Sign in"

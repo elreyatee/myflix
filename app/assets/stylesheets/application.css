@@ -14,3 +14,9 @@
  *= require_tree .
  *= require rails_bootstrap_forms
 */
+
+.forgot_password {
+	margin-bottom: 10px;
+	margin-top: -5px;
+	font-weight: bold;
+}

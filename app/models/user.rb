@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :queue_items, ->{ order(:list_position) }
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
-  validates :password, presence: true, on: :create, length: { minimum: 7 }
+  validates :password, presence: true, on: [:create, :update], length: { minimum: 7 }
 
   def normalize_queue_item_positions
     queue_items.each_with_index do |queue_item, index|
@@ -32,5 +32,9 @@ class User < ActiveRecord::Base
 
   def following?(another_user)
     followings.include?(another_user)
+  end
+
+  def generate_token
+    update_column(:password_reset_token, SecureRandom.urlsafe_base64) #bypasses pw validations
   end
 end
