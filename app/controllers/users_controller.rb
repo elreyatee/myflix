@@ -2,7 +2,11 @@ class UsersController < ApplicationController
   before_action :require_user, only: [:show]
 
   def new
-    @user = User.new
+    if params
+      @user = User.new(name: params[:name], email: params[:email])
+    else
+      @user = User.new
+    end
   end
 
   def create
