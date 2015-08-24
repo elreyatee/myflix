@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :followings, through: :relationships
   has_many :reviews
   has_many :queue_items, ->{ order(:list_position) }
+  has_many :invitations
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true, on: [:create, :update], length: { minimum: 7 }

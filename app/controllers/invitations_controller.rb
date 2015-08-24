@@ -1,24 +1,18 @@
 class InvitationsController < ApplicationController 
+  before_action :require_user, only: [:new, :create]
 
   def new
-
+    @invitation = Invitation.new
   end
 
   def create 
-    invited_user = create_user
-    AppMailer.send_invite_msg(invited_user).deliver
-    redirect_to invite_confirmation_path
+    @invitation = current_user.invitations.new(recipient_params)
+    redirect_to invite_path
   end
 
-  def confirm; end
+  private 
 
-  private
-
-  def create_user
-    user = OpenStruct.new
-    params.each do |key, value|
-      user[key.to_sym] = value
-    end
-    user
-  end
+  def recipient_params
+    params.require(:invitation).permit!(:name, :email, :message)
+  end 
 end
