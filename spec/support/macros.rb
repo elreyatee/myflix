@@ -6,6 +6,10 @@ def sign_in(user = nil)
   click_button "Sign in"
 end
 
+def sign_out 
+  visit sign_out_path
+end
+
 def set_referrer
   request.env['HTTP_REFERER'] = "http://localhost:3000"
 end
