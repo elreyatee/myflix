@@ -1,6 +1,0 @@
-!!! 5
-%html(lang="en-US")
-  %body
-    %p= "Hello #{@invited_user.name}, you've been invited to join MyFlix!"
-    %p= @invited_user.invite_msg
-    %p= link_to "Click here to join", register_url(email: @invited_user.email, name: @invited_user.name)

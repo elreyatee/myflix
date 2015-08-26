@@ -7,12 +7,19 @@ class InvitationsController < ApplicationController
 
   def create 
     @invitation = current_user.invitations.new(recipient_params)
-    redirect_to invite_path
+    if @invitation.save
+      AppMailer.send_invite(@invitation).deliver
+      flash[:notice] = "You have successfully invited #{@invitation.name}"
+      redirect_to new_invitation_path
+    else
+      flash[:error] = "Invitation not sent, please check your inputs"
+      render :new
+    end
   end
 
   private 
 
   def recipient_params
-    params.require(:invitation).permit!(:name, :email, :message)
+    params.require(:invitation).permit(:name, :email, :message)
   end 
 end

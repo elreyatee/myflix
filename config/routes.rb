@@ -6,6 +6,7 @@ Myflix::Application.routes.draw do
   get 'genre/:name', to: 'categories#show', as: 'category'
   get 'register', to: 'users#new'
   post 'register', to: 'users#create'
+  get 'register/:invite_token', to: 'users#new_with_invitation_token', as: 'register_with_token'
   get 'sign_in', to: 'sessions#new'
   post 'sign_in', to: 'sessions#create'
   get 'sign_out', to: 'sessions#destroy'
@@ -28,7 +29,8 @@ Myflix::Application.routes.draw do
   resources :forgot_passwords, only: [:create]
   get 'forgot_password_confirmation', to: 'forgot_passwords#confirm'
   resources :password_resets, only: [:show, :create]
-  get 'expired_token', to: 'password_resets#expired_token'
+  get 'expired_token', to: 'pages#expired_token'
   resources :invitations, only: [:new, :create]
   get 'invite_confirmation', to: 'invitations#confirm'
+
 end

@@ -31,6 +31,10 @@ class User < ActiveRecord::Base
     Relationship.where(following_id: id).count
   end
 
+  def follow(another_user)
+    relationships.create(following_id: another_user.id)
+  end 
+
   def following?(another_user)
     followings.include?(another_user)
   end
