@@ -6,13 +6,13 @@ class AppMailer < ActionMailer::Base
     mail to: user.email, subject: "Welcome to MyFlix!"
   end
 
-  def send_forgot_password(user)
-    @user = user
+  def send_forgot_password(user_id)
+    @user = User.find(user_id)
     mail to: user.email, subject: "Please reset your password"
   end
 
-  def send_invite(invitation)
-    @invitation = invitation
+  def send_invite(invitation_id)
+    @invitation = Invitation.find(invitation_id)
     mail to: invitation.email, subject: "Invitation to join MyFlix!"
   end
 end
