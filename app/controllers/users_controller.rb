@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     if @user.save
       handle_invitation
       flash[:notice] = 'Your profile has been created!'
-      AppMailer.welcome_email(@user).deliver
+      AppMailer.delay.welcome_email(@user.id)
       redirect_to sign_in_path
     else
       flash[:error] = 'There was a problem, please try again.'
