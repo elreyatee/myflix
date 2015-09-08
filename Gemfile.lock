@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/eventmachine/eventmachine.git
+  revision: a1fa52a7ca840b59bdf1d849ff47eb72cb7ca73c
+  specs:
+    eventmachine (1.0.8)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -104,7 +110,6 @@ GEM
     diff-lcs (1.2.5)
     dotenv (2.0.2)
     erubis (2.7.0)
-    eventmachine (1.0.0)
     execjs (2.0.2)
     fabrication (2.13.2)
     faker (1.4.3)
@@ -138,7 +143,7 @@ GEM
     nenv (0.2.0)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
-    pg (0.17.0)
+    pg (0.18.3)
     polyglot (0.3.5)
     pry (0.9.12.3)
       coderay (~> 1.0)
@@ -257,13 +262,14 @@ DEPENDENCIES
   capybara-email
   coffee-rails
   database_cleaner (= 1.2.0)
+  eventmachine!
   fabrication
   faker
   haml-rails
   jquery-rails
   launchy
   letter_opener
-  pg
+  pg (~> 0.18.2)
   pry
   pry-nav
   puma
@@ -277,6 +283,3 @@ DEPENDENCIES
   slim
   thin
   uglifier
-
-BUNDLED WITH
-   1.10.0.rc
