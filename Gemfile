@@ -14,6 +14,7 @@ gem 'bcrypt'
 gem 'sidekiq'
 gem 'sinatra'
 gem 'slim'
+gem 'puma'
 
 group :development do
   gem 'thin'
