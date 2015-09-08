@@ -269,7 +269,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   letter_opener
-  pg (~> 0.18.2)
+  pg
   pry
   pry-nav
   puma
@@ -283,3 +283,6 @@ DEPENDENCIES
   slim
   thin
   uglifier
+
+BUNDLED WITH
+   1.10.0.rc

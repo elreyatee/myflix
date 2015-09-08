@@ -6,8 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-user1 = User.create!(name: "Bob Example", email: "bob@example.com", password: "12345678")
-user2 = User.create!(name: "Jane Doe", email: "jane@example.com", password: "87654321")
+# user1 = User.create!(name: "Bob Example", email: "bob@example.com", password: "12345678")
+# user2 = User.create!(name: "Jane Doe", email: "jane@example.com", password: "87654321")
 
 drama = Category.create!(name: "Dramas")
 action = Category.create!(name: "Action")
@@ -50,6 +50,6 @@ Video.create!(title: "Monk",
             large_cover_url: "/tmp/monk_large.jpg", 
             category: commedies)
 
-Review.create!(user: user1, video: daredevil, rating: 5, body: "This is a really awesome movie! Marvel is the best!")
-Review.create!(user: user2, video: daredevil, rating: 5, body: "Daredevil is my favorite Marvel hero, this movie does Daredevil right!")
-Relationship.create!(following_id: user2.id, user_id: user1.id)
+# Review.create!(user: user1, video: daredevil, rating: 5, body: "This is a really awesome movie! Marvel is the best!")
+# Review.create!(user: user2, video: daredevil, rating: 5, body: "Daredevil is my favorite Marvel hero, this movie does Daredevil right!")
+# Relationship.create!(following_id: user2.id, user_id: user1.id)

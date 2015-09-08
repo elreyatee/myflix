@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.0'
+ruby '2.1.1'
 
 gem 'bootstrap-sass'
 gem 'coffee-rails'
@@ -8,13 +8,12 @@ gem 'haml-rails'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'jquery-rails'
-gem 'pg', '~> 0.18.2'
+gem 'pg'
 gem 'bootstrap_form'
 gem 'bcrypt'
 gem 'sidekiq'
 gem 'sinatra'
 gem 'slim'
-gem 'puma'
 gem 'eventmachine', github: "eventmachine/eventmachine"
 
 group :development do
@@ -42,4 +41,5 @@ end
 
 group :production do
   gem 'rails_12factor'
+  gem 'puma'
 end

@@ -1,2 +1,3 @@
 web: bundle exec puma -C config/puma.rb
-worker: sidekiq
+redis: redis-server
+worker: bundle exec sidekiq
