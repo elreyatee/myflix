@@ -15,6 +15,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def admin?
+    admin == true ? true : false
+  end
+
   def queue_includes?(video)
     queue_items.map(&:video).include?(video) 
   end

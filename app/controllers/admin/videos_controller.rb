@@ -1,4 +1,4 @@
-class Admin::VideosController < ApplicationController
+class Admin::VideosController < AdminController
   def new 
     @category_options = Category.all.map { |c| [c.name, c.id] }
     @video = Video.new
@@ -6,6 +6,14 @@ class Admin::VideosController < ApplicationController
 
   def create
     @video = Video.new(video_params)
+
+    if @video.save
+      flash[:notice] = "Your video has been added"
+      redirect_to 'back'
+    else
+      flash[:error] = "There was an error, please try again"
+      render 'new'
+    end
   end
 
   private
