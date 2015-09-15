@@ -8,12 +8,11 @@ class Admin::VideosController < ApplicationController
   end
 
   def create
-    video = Video.new(video_params)
-    video.category = Category.find(params[:video][:category_id])
+    @video = Video.new(video_params)
 
-    if video.save
-      flash[:notice] = "Your video has been added"
-      redirect_to 'back'
+    if @video.save
+      flash[:notice] = "Your successfully added #{@video.title}"
+      redirect_to new_admin_video_path
     else
       flash[:error] = "There was an error, please try again"
       render 'new'
@@ -23,7 +22,7 @@ class Admin::VideosController < ApplicationController
   private
 
   def video_params
-    params.require(:video).permit(:title, :description, :large_cover_url, :small_cover_url)
+    params.require(:video).permit(:title, :description, :category_id, :large_cover_url, :small_cover_url)
   end
 
   def require_admin
