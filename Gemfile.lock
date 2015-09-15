@@ -35,6 +35,11 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.8)
     arel (5.0.1.20140414130214)
+    aws-sdk (1.66.0)
+      aws-sdk-v1 (= 1.66.0)
+    aws-sdk-v1 (1.66.0)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
     bcrypt (3.1.10)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -55,6 +60,14 @@ GEM
     capybara-email (2.4.0)
       capybara (~> 2.4)
       mail
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
+    carrierwave-aws (0.7.1)
+      aws-sdk (~> 1.58)
+      carrierwave (~> 0.7)
     celluloid (0.17.1.2)
       bundler
       celluloid-essentials
@@ -273,6 +286,8 @@ DEPENDENCIES
   bootstrap_form
   capybara
   capybara-email
+  carrierwave
+  carrierwave-aws
   coffee-rails
   database_cleaner (= 1.2.0)
   eventmachine!

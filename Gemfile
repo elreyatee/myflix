@@ -15,7 +15,9 @@ gem 'sidekiq'
 gem 'sinatra'
 gem 'slim'
 gem 'eventmachine', github: "eventmachine/eventmachine"
-gem "sentry-raven"
+gem 'sentry-raven'
+gem 'carrierwave'
+gem 'carrierwave-aws'
 
 group :development do
   gem 'thin'
