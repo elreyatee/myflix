@@ -314,6 +314,3 @@ DEPENDENCIES
   slim
   thin
   uglifier
-
-BUNDLED WITH
-   1.10.0.rc
