@@ -5,8 +5,8 @@ class Video < ActiveRecord::Base
   belongs_to :category
   scope :sorted, ->{ order(:title) }
   validates_presence_of :title, :description
-  mount_uploader :small_cover_url, CoverUploader
-  mount_uploader :large_cover_url, CoverUploader
+  mount_uploader :large_cover, LargeCoverUploader
+  mount_uploader :small_cover, SmallCoverUploader
 
   def self.search_by_title(title)
     return [] if title.blank?
