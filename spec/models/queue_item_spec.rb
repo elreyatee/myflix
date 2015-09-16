@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe QueueItem do  
-  it { should belong_to(:user) }
-  it { should belong_to(:video) }
-  it { should validate_numericality_of(:list_position).only_integer }
+  it { is_expected.to belong_to(:user) }
+  it { is_expected.to belong_to(:video) }
+  it { is_expected.to validate_numericality_of(:list_position).only_integer }
 
   describe "#title" do
     it "returns the title of the associated video" do  

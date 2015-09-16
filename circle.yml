@@ -13,7 +13,14 @@ deployment:
   staging:
     branch: staging
     commands:
+<<<<<<< HEAD
+      - heroku maintenance:on --app tealeaf-myflix-staging
+      - git push git@heroku.com:tealeaf-myflix-staging.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate --app tealeaf-myflix-staging
+      - heroku maintenance:off --app tealeaf-myflix-staging
+=======
       - heroku maintenance:on --app tealeaf-myflixapp
       - git push git@heroku.com:tealeaf-myflixapp.git $CIRCLE_SHA1:refs/heads/master
       - heroku run rake db:migrate --app tealeaf-myflixapp
       - heroku maintenance:off --app tealeaf-myflixapp
+>>>>>>> admin_add_a_video
