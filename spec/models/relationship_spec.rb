@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe Relationship do 
-  it { should belong_to(:user) }
-  it { should belong_to(:following) }
-  it { should validate_presence_of(:following_id) }
-  it { should validate_presence_of(:user_id) }
+  it { is_expected.to belong_to(:user) }
+  it { is_expected.to belong_to(:following) }
+  it { is_expected.to validate_presence_of(:following_id) }
+  it { is_expected.to validate_presence_of(:user_id) }
   it do 
-    should validate_uniqueness_of(:following_id).
+    is_expected.to validate_uniqueness_of(:following_id).
     scoped_to(:user_id).
     with_message('You are already following this user')
   end

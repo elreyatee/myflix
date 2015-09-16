@@ -3,7 +3,7 @@ ruby '2.2.0'
 
 gem 'bootstrap-sass', '3.1.1.1'
 gem 'coffee-rails'
-gem 'rails', '4.1.1'
+gem 'rails', '4.2.4'
 gem 'haml-rails'
 gem 'sass-rails'
 gem 'uglifier'
@@ -30,7 +30,7 @@ end
 group :development, :test do
   gem 'pry'
   gem 'pry-nav'
-  gem 'rspec-rails', '2.99'
+  gem 'rspec-rails', '3.1'
   gem 'fabrication'
   gem 'faker'
   gem 'capybara'

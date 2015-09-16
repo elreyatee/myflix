@@ -5,13 +5,13 @@ describe User do
   let(:follower) { Fabricate(:user) }
   let(:video) { Fabricate(:video) }
 
-  it { should validate_presence_of(:email) }
-  it { should validate_presence_of(:password) }
-  it { should validate_presence_of(:name) }
-  it { should validate_uniqueness_of(:email) }
-  it { should have_many(:queue_items).order(:list_position) }
-  it { should have_many(:relationships) }
-  it { should have_many(:followings).through(:relationships) }
+  it { is_expected.to validate_presence_of(:email) }
+  it { is_expected.to validate_presence_of(:password) }
+  it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_uniqueness_of(:email) }
+  it { is_expected.to have_many(:queue_items).order(:list_position) }
+  it { is_expected.to have_many(:relationships) }
+  it { is_expected.to have_many(:followings).through(:relationships) }
 
   describe "#queue_includes?" do  
     it "returns true when the user queues the video" do
