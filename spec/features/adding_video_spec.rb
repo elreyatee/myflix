@@ -12,6 +12,9 @@ feature "Admin adds a new video" do
     fill_in "Title", with: video.title
     select "Action", from: "Category"
     fill_in "Description", with: "video.description"
+    attach_file "Large Cover", "spec/support/uploads/raid_large.jpg"
+    attach_file "Small Cover", "spec/support/uploads/raid_small_cover.jpg"
+    fill_in "Video URL", with: "http://www.theraid.com"
     click_button "Add Video"
     sign_out
 
