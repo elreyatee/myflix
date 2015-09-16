@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-feature "see add a video page" do 
-  scenario "admin adds a video" do 
+feature "Admin adds a new video" do 
+  scenario "Admin successfully adds a video" do 
     aaron = Fabricate(:user)
     action = Fabricate(:category, name: "Action")
     video = Fabricate(:video, title: "Raid", category: action, description: "Martial Arts action")
